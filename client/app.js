@@ -18,7 +18,9 @@ class PricePredictor {
 
   async loadLocations() {
     try {
-      const response = await fetch("api/get_location_names");
+      const response = await fetch(
+        "http://127.0.0.1:5000/api/get_location_names"
+      );
       const data = await response.json();
 
       if (data?.locations) {
@@ -63,13 +65,16 @@ class PricePredictor {
         location: this.locationSelect.value,
       };
 
-      const response = await fetch("/api/predict_home_price", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
+      const response = await fetch(
+        "http://127.0.0.1:5000/api/predict_home_price",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        }
+      );
 
       const data = await response.json();
       this.displayResult(data.estimated_price);
